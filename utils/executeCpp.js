@@ -10,7 +10,7 @@ const execCpp = (filepath) => {
   const outPath = path.join(outputPath, `${outputId}.out`);
   return new Promise((resolve, reject) => {
     exec(
-      `g++ ${filepath} -o ${outPath} && cd ${outPath} && ./${outputId}.out`,
+      `g++ ${filepath} -o ${outPath} && cd ${outputPath} && bash -c ./${outputId}.out`,
       (err, stdout, stderr) => {
         if (err) reject({ err, stderr });
         if (stderr) reject({ stderr });
