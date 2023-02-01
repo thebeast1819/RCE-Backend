@@ -20,6 +20,36 @@ const execCpp = (filepath) => {
   });
 };
 
+const execPython = (filepath) => {
+  const outputId = path.basename(filepath).split(".")[0];
+  const outPath = path.join(outputPath, `${outputId}.out`);
+  return new Promise((resolve, reject) => {
+    exec(
+      `python3 ${filepath} -o ${outPath} && cd ${outputPath}`,
+      (err, stdout, stderr) => {
+        if (err) reject({ err, stderr });
+        if (stderr) reject({ stderr });
+        resolve(stdout);
+      }
+    );
+  });
+};
+
+const execNode = (filepath) => {
+  const outputId = path.basename(filepath).split(".")[0];
+  const outPath = path.join(outputPath, `${outputId}.out`);
+  return new Promise((resolve, reject) => {
+    exec(
+      `node ${filepath} -o ${outPath} && cd ${outputPath}`,
+      (err, stdout, stderr) => {
+        if (err) reject({ err, stderr });
+        if (stderr) reject({ stderr });
+        resolve(stdout);
+      }
+    );
+  });
+};
+
 module.exports = {
-  execCpp,
+  execCpp,execPython,execNode,
 };
